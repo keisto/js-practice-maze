@@ -9,11 +9,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.14.2/matter.min.js"></script>
     <style>
         body {
-            margin: 0
+            margin: 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 4rem;
+        }
+
+        .winner {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            z-index: 1;
+            height: 100vh;
+            width: 100vh;
+        }
+
+        button {
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            color: #fff;
+            background: #0070f3;
+            font-size: 1.5rem;
+            font-weight: bolder;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
+<div class="winner hidden">
+    <h1>You Won!</h1>
+    <button onclick="window.location.reload()">Play Again?</button>
+</div>
     <script src="index.js"></script>
 </body>
 </html>

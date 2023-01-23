@@ -27,6 +27,7 @@ const render = Render.create({
     wireframes: false,
     width,
     height,
+    background: '#000',
   },
 })
 
@@ -41,11 +42,12 @@ World.add(
 )
 
 // Walls
+const wallOptions = { isStatic: true, render: { fillStyle: '#222' } }
 const walls = [
-  Bodies.rectangle(width / 2, 0, width, 20, { isStatic: true }),
-  Bodies.rectangle(width / 2, height, width, 20, { isStatic: true }),
-  Bodies.rectangle(0, height / 2, 20, height, { isStatic: true }),
-  Bodies.rectangle(width, height / 2, 20, height, { isStatic: true }),
+  Bodies.rectangle(width / 2, 0, width, 20, wallOptions),
+  Bodies.rectangle(width / 2, height, width, 20, wallOptions),
+  Bodies.rectangle(0, height / 2, 20, height, wallOptions),
+  Bodies.rectangle(width, height / 2, 20, height, wallOptions),
 ]
 World.add(world, walls)
 
@@ -142,7 +144,7 @@ horizontals.forEach((row, rowIndex) => {
       rowIndex * unitLengthY + unitLengthY,
       unitLengthX,
       10,
-      { label: 'wall', isStatic: true }
+      { ...wallOptions, label: 'wall' }
     )
     World.add(world, wall)
   })
@@ -159,7 +161,7 @@ verticals.forEach((row, rowIndex) => {
       rowIndex * unitLengthY + unitLengthY / 2,
       10,
       unitLengthY,
-      { label: 'wall', isStatic: true }
+      { ...wallOptions, label: 'wall' }
     )
     World.add(world, wall)
   })
@@ -171,7 +173,7 @@ const goal = Bodies.rectangle(
   height - unitLengthY / 2,
   unitLengthX / 2,
   unitLengthY / 2,
-  { label: 'goal', isStatic: true, render: { fillStyle: 'limegreen' } }
+  { label: 'goal', isStatic: true, render: { fillStyle: '#29bc9b' } }
 )
 World.add(world, goal)
 
@@ -179,6 +181,7 @@ World.add(world, goal)
 const ballRadius = Math.min(unitLengthX, unitLengthY) / 4
 const ball = Bodies.circle(unitLengthX / 2, unitLengthY / 2, ballRadius, {
   label: 'ball',
+  render: { fillStyle: '#f81ce5' },
 })
 World.add(world, ball)
 
@@ -221,6 +224,7 @@ Events.on(engine, 'collisionStart', (e) => {
           Body.setStatic(body, false)
         }
       })
+      document.querySelector('.winner').classList.remove('hidden')
     }
   })
 })
